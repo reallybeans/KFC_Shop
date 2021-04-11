@@ -1,0 +1,86 @@
+﻿@model Cart
+@{
+    ViewData["Title"] = "ShowToCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Your bag cart</h1>
+
+@if (Model != null)
+{
+    if (Model.Items.Count() > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sum</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    double total = item._shopping_product.Price * item._shopping_quantity;
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item._shopping_product.ProductName)
+                        </td>
+                        <td>
+                            <img src="@item._shopping_product.ImgSrc" style="width:100px;height:100px;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item._shopping_product.Price)
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("Update_Quantity_Cart", "ShoppingCart"))
+                            {
+                                <input type="number" min="1" required="" value="@item._shopping_quantity" name="quantity" />
+                                <input type="hidden" value="@item._shopping_product.ProductId" name="productID" />
+                                <input class="btn btn-outline-info" type="submit" value="Update" /><br />
+                            }
+                        </td>
+                        <td>
+                            @total VND
+                        </td>
+                        <td>
+                            <a type="button" class="btn btn-outline-danger" href="/ShoppingCart/Remove_CartItem/@item._shopping_product.ProductId">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <span style="margin-top:40px;color:orangered;">@ViewData["Message"]</span>
+                    </td>
+                    <td colspan="5" style="text-align:right">
+                        Total money: @Model.TotalMoney() VND
+                    </td>
+
+                </tr>
+            </tfoot>
+        </table>
+
+        <a href="@Url.Action("Index","Home")">Buy another</a>
+        <a class="btn btn-outline-success" style="margin-left:900px" href="@Url.Action("CheckOutForm","ShoppingCart")">Check out</a>
+        
+            @if (ViewData["SoldOutList"] != null)
+            {
+                if (ViewData.Values != null && ViewData.Values.Count() > 0)
+                {
+                    foreach (var item in ViewData["SoldOutList"] as IList<string>)
+                    {
+                        <span style="margin-top:40px;color:orangered;">@item</span><br />
+                    }
+                }
+            }
+        
+    }
+
+
+}

@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "CheckOutForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <style>
+        .form {
+            margin-top: 100px;
+            text-align: center;
+            border-style: outset;
+            border-radius: 30px;
+        }
+        .form h1 {
+                margin-top: 20px;
+         }
+        #los {
+            margin-top: 15px;
+            width: 500px;
+            margin-left: 300px;
+        }
+        #button{
+            margin-bottom:20px;
+            margin-left:270px;
+        }
+        #link{
+            height:20px;
+        }
+    </style>
+</head>
+
+
+
+<div class="form">
+    @using (Html.BeginForm("Checkout", "ShoppingCart"))
+    {
+        <h1>Check Out Form</h1>
+        <div id="los" class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Address:</span>
+            </div>
+            <input type="text" required="" name="address" class="form-control" placeholder="Address" aria-label="Address" aria-describedby="basic-addon1">
+        </div>
+        <div id="los" class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Phone (123-456-7890):</span>
+            </div>
+            <input type="tel" required="" name="phone" class="form-control" placeholder="Phone" aria-label="Phone" aria-describedby="basic-addon1"
+                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"> <br />
+
+
+        </div>
+
+        <a id="link" class="badge badge-warning" href="@Url.Action("Index","Home")">Continue Shopping</a>
+        <input id="button" class="btn btn-outline-success" type="submit" value="Checkout" />
+    }
+</div>
+

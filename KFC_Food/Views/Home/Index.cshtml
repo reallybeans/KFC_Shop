@@ -1,0 +1,63 @@
+﻿
+@model IEnumerable<KFC_Food.Models.TblProduct>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <style>
+        .card{
+            width:250px;
+            border-radius:5px;
+            padding:10px;
+            text-align:center;
+            box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
+            transition:0.3s;
+        }
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+            img{
+                border-radius:5px 5px 0 0;
+            }
+    </style>
+</head>
+<div class="text-center">
+    <h3 class="display-4">Welcome to my Fast Food Shop</h3>
+    <hr />
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        
+        
+        <div class="form-inline">
+            @using (Html.BeginForm("Search", "Home"))
+            {
+                <input name="searchValue" class="form-control mr-sm-2" type="search" value="@ViewData["SearchValue"]" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            }
+
+        </div>
+            
+        
+    </nav>    
+            
+            
+  
+
+</div>
+<p style="color:red">@ViewData["Message"]</p>
+<div class="container">
+    <div class="row">
+        @foreach(var item in Model)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3" style="margin-bottom:25px;" >
+                <div class="card">
+                    @Html.DisplayFor(model => item.ProductName)
+                    <img src="@item.ImgSrc" style="width:200px;height:200px;margin:10px;" />
+                    @Html.DisplayFor(model => item.Description)
+                    @Html.DisplayFor(model => item.Price)VND
+                    @*<a type="button" class="btn btn-outline-success" href="/ShoppingCart/AddToCart/@item.ProductId&@ViewData["SearchValue"]">Add to cart</a>*@
+                    <a class="btn btn-outline-success" href="@Url.Action("AddToCart", "ShoppingCart", new { productID = item.ProductId, search = ViewData["SearchValue"] })">Add to cart</a>
+                </div> 
+            </div>
+        }
+    </div>
+</div>

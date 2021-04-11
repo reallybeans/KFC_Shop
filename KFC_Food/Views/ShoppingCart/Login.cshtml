@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <style>
+        .loginForm{
+            margin-top:100px;
+            text-align:center;
+            border-style:outset;
+            border-radius:30px;
+        }
+        .loginForm h1{
+            margin-top:20px;
+        }
+        #los{
+            width:500px;
+            margin-left:300px;
+        }
+        #button{
+            margin-bottom:20px;
+            border-radius:5px;
+            width:100px;
+            margin-left:-20px;
+            margin-right:280px;
+        }
+        p{
+            color:red;
+        }
+    </style>
+</head>
+
+<div class="loginForm">
+    @using (Html.BeginForm("Login", "Login"))
+    {
+        <h1>Login Form</h1>
+        <div id="los" class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">UserName:</span>
+            </div>
+            <input type="text" required="" name="userName" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div id="los" class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Password:</span>
+            </div>
+            <input type="password" required="" name="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <p>@ViewData["Message"]</p>
+        <input id="button" class="btn btn-success" type="submit" name="btnAction" value="Login" />
+        <a href="/Login/RegisterForm">Register here</a>
+
+    }
+
+</div>
+
